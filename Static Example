@@ -1,0 +1,48 @@
+class Emp {
+    private int age;
+    private String name;
+    private int id;
+    public static int nextId=1;
+    public Emp(int age,String name)
+    {
+        this.age=age;
+        this.name=name;
+        id=nextId++;
+    }
+    public void show()
+    {
+        System.out.println("Their age,name and id:"+ age+" "+name+" "+id );
+        System.out.println("===================================");
+    }
+    public void showNextId()
+    {
+        System.out.println("Next id is:"+nextId);
+    }
+    protected void finalize()
+    {
+        --nextId;
+    }
+}
+class UseEmp {
+    public static void main(String[] args) {
+        Emp E=new Emp(21,"Depaak");
+        Emp F=new Emp(22,"Sumon");
+        Emp G=new Emp(23,"Golam masud");
+        E.show();
+        F.show();
+        G.show();
+        E.showNextId();
+        {
+            Emp A=new Emp(19,"amit");
+            Emp B=new Emp(19,"jyoti");
+            A.show();
+            B.show();
+            A.showNextId();
+            A=B=null;
+            System.gc();
+            System.runFinalization();
+        }
+        System.out.println("Intership Complate");
+        G.showNextId();
+    }
+}
